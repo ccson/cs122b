@@ -136,67 +136,62 @@ public class JDBC
 		
 	}
 
-	public static void sql_command(Connection connection, String query) {
-		try{
-			String split[] = query.split(" ");
+	public static void sql_command(Connection connection, String query) throws SQLException {
+		String split[] = query.split(" ");
 
-			if(split[0].equalsIgnoreCase("select")){
-				Statement statement = connection.createStatement();
-				ResultSet result; 
-				result = statement.executeQuery(query);
-				int columns = result.getMetaData().getColumnCount();
-				String attributes = "";
+		if(split[0].equalsIgnoreCase("select")){
+			Statement statement = connection.createStatement();
+			ResultSet result; 
+			result = statement.executeQuery(query);
+			int columns = result.getMetaData().getColumnCount();
+			String attributes = "";
 
-				for (int i = 1; i <= columns; i ++){
-					attributes += (result.getMetaData().getColumnName(i)) + " ";
+			for (int i = 1; i <= columns; i ++){
+				attributes += (result.getMetaData().getColumnName(i)) + " ";
+			}
+			System.out.println("\nAttributes: " + attributes);
+
+			while(result.next()) {
+				String line = "";
+				for (int j = 1; j <= columns; j++){
+					line = line + result.getString(j) + " ";
 				}
-				System.out.println("\nAttributes: " + attributes);
-
-				while(result.next()) {
-					String line = "";
-					for (int j = 1; j <= columns; j++){
-						line = line + result.getString(j) + " ";
-					}
-					System.out.println();
-					System.out.println(line);
-				}
-				
-				result.close(); 
-				statement.close(); 
-				
+				System.out.println();
+				System.out.println(line);
 			}
-			else if(split[0].equalsIgnoreCase("update")){
-				
-				PreparedStatement updateStatement = connection.prepareStatement(query);
-				updateStatement.executeUpdate();
-				updateStatement.close(); 
-				
-			}
-			else if(split[0].equalsIgnoreCase("insert")){
-				
-				PreparedStatement updateStatement = connection.prepareStatement(query);
-				updateStatement.executeUpdate();
-				updateStatement.close(); 
-				System.out.println("\nSuccessfully inserted into database table");
-				
-			}
-			else if(split[0].equalsIgnoreCase("delete")){
-				
-				PreparedStatement updateStatement = connection.prepareStatement(query);
-				updateStatement.executeUpdate();
-				updateStatement.close(); 
-				System.out.println("\nSuccessfully deleted from database table");	
-				
-			}
-			else{
-				
-				System.out.println("You have an error in your SQL syntax");
-				
-			}
-		} 
-		catch(Exception e){
-			System.out.println("You have an error in your SQL syntax");
+			
+			result.close(); 
+			statement.close(); 
+			
 		}
+		else if(split[0].equalsIgnoreCase("update")){
+			
+			PreparedStatement updateStatement = connection.prepareStatement(query);
+			updateStatement.executeUpdate();
+			updateStatement.close(); 
+			
+		}
+		else if(split[0].equalsIgnoreCase("insert")){
+			
+			PreparedStatement updateStatement = connection.prepareStatement(query);
+			updateStatement.executeUpdate();
+			updateStatement.close(); 
+			System.out.println("\nSuccessfully inserted into database table");
+			
+		}
+		else if(split[0].equalsIgnoreCase("delete")){
+			
+			PreparedStatement updateStatement = connection.prepareStatement(query);
+			updateStatement.executeUpdate();
+			updateStatement.close(); 
+			System.out.println("\nSuccessfully deleted from database table");	
+			
+		}
+		else{
+			
+			System.out.println("Error in MYSQL Syntax");
+			
+		}		
 	}
 
 	public static void exit_menu(Connection connection) throws Exception {
