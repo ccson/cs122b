@@ -167,24 +167,25 @@ public class JDBC
 		else if(split[0].equalsIgnoreCase("update")){
 			
 			PreparedStatement updateStatement = connection.prepareStatement(query);
-			updateStatement.executeUpdate();
+			int numberOfUpdates = updateStatement.executeUpdate();
+			System.out.println("Number of Rows Affected: " + numberOfUpdates);
 			updateStatement.close(); 
 			
 		}
 		else if(split[0].equalsIgnoreCase("insert")){
 			
 			PreparedStatement updateStatement = connection.prepareStatement(query);
-			updateStatement.executeUpdate();
+			int numberOfUpdates = updateStatement.executeUpdate();
+			System.out.println("Number of Rows Affected: " + numberOfUpdates);
 			updateStatement.close(); 
-			System.out.println("\nSuccessfully inserted into database table");
 			
 		}
 		else if(split[0].equalsIgnoreCase("delete")){
 			
 			PreparedStatement updateStatement = connection.prepareStatement(query);
-			updateStatement.executeUpdate();
+			int numberOfUpdates = updateStatement.executeUpdate();
+			System.out.println("Number of Rows Affected: " + numberOfUpdates);
 			updateStatement.close(); 
-			System.out.println("\nSuccessfully deleted from database table");	
 			
 		}
 		else{
