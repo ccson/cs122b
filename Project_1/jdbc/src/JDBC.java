@@ -108,7 +108,7 @@ public class JDBC
 		System.out.println("Please enter the Customer ID: ");
 		String customerID = scan.nextLine(); 
 		
-		String updateString = "DELETE FROM customers WHERE customers.id = " + customerID; 
+		String updateString = "DELETE FROM customers WHERE customers.cc_id = \'" + customerID + "\'"; 
 		
 		PreparedStatement updateStatement = connection.prepareStatement(updateString);
 		updateStatement.executeUpdate();
@@ -241,72 +241,86 @@ public class JDBC
 			un = scan.nextLine();
 			System.out.println("Enter a user password:");
 			pw = scan.nextLine();
-			
-			// Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "root", "calmdude6994");
-			Connection connection = DriverManager.getConnection(db, un, pw);
-			System.out.println("\nSuccessfully connected to your database");
 
 			try{
+				
+				// Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "root", "calmdude6994");
+				Connection connection = DriverManager.getConnection(db, un, pw);
+				System.out.println("\nSuccessfully connected to your database");
 
 				while(true){
-					System.out.println("\nEnter a command [Print, Insert Star, Insert Customer, Delete Customer, Print Metadata, SQL command, Exit Menu, Exit Program]:");
-					command = scan.nextLine();
-
-					if(command.equalsIgnoreCase("Print")){
-			
-						print(connection, scan);
+					
+					try {
+					
+						System.out.println("\nEnter a command [Print, Insert Star, Insert Customer, Delete Customer, Print Metadata, SQL command, Exit Menu, Exit Program]:");
+						command = scan.nextLine();
+	
+						if(command.equalsIgnoreCase("Print")){
+				
+							print(connection, scan);
+							
+						}
+						else if(command.equalsIgnoreCase("Insert Star")){
+							
+							insert_star(connection, scan);
+							
+						}
+						else if(command.equalsIgnoreCase("Insert Customer")){
+	
+							insert_customer(connection, scan); 
+	
+						}
+						else if(command.equalsIgnoreCase("Delete Customer")){
+							
+							delete_customer(connection, scan); 
+	
+						}
+						else if(command.equalsIgnoreCase("Print Metadata")){
+							
+							print_metadata(connection);
+							
+						}
+						else if(command.equalsIgnoreCase("SQL Command")){
+							System.out.println("\nType a valid SQL command:");
+							sql = scan.nextLine();
+							sql_command(connection, sql);
+						}
+						else if(command.equalsIgnoreCase("Exit Menu")){
+							exit_menu(connection);
+							break;
+						}
+						else if(command.equalsIgnoreCase("Exit Program")){
+							exit_program = exit_menu_and_program(connection);
+							break;
+						}
 						
-					}
-					else if(command.equalsIgnoreCase("Insert Star")){
+						else {
+							
+							System.out.println("Invalid Command. Please try again."); 
+							
+						}
 						
-						insert_star(connection, scan);
-						
-					}
-					else if(command.equalsIgnoreCase("Insert Customer")){
-
-						insert_customer(connection, scan); 
-
-					}
-					else if(command.equalsIgnoreCase("Delete Customer")){
-						
-						delete_customer(connection, scan); 
-
-					}
-					else if(command.equalsIgnoreCase("Print Metadata")){
-						
-						print_metadata(connection);
-						
-					}
-					else if(command.equalsIgnoreCase("SQL Command")){
-						System.out.println("\nType a valid SQL command:");
-						sql = scan.nextLine();
-						sql_command(connection, sql);
-					}
-					else if(command.equalsIgnoreCase("Exit Menu")){
-						exit_menu(connection);
-						break;
-					}
-					else if(command.equalsIgnoreCase("Exit Program")){
-						exit_program = exit_menu_and_program(connection);
-						break;
 					}
 					
-					else {
+					catch (SQLException e){
 						
-						System.out.println("Invalid Command. Please try again."); 
+						error = e.getClass().getCanonicalName();
+						
+						if(error.equals("com.mysql.jdbc.exceptions.MySQLSyntaxErrorException")){
+							System.out.println("\nError in MYSQL Syntax");
+						}
+						else if (error.equals("com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException")){
+							System.out.println("\nError! Cannot perform command to MYSQL DataBase.");
+						}
 						
 					}
 				}
 			}
 			catch(SQLException e){
 				error = e.getClass().getCanonicalName();
-				System.out.println(error);
 				if(error.equals("java.sql.SQLException")){
 					System.out.println();
 					System.out.println(e.getMessage());
-				}
-				else if(error.equals("com.mysql.jdbc.exceptions.MySQLSyntaxErrorException")){
-					System.out.println("\nDatabase does not exist");
 				}
 				exit_program = exit_program(scan);
 			}
