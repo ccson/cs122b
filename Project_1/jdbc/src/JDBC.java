@@ -1,5 +1,3 @@
-package jdbc; 
-
 import java.sql.*;
 import java.util.*;
 
@@ -225,7 +223,7 @@ public class JDBC
 
 			Scanner scan = new Scanner(System.in);
 			System.out.println("\nEnter a database:");
-			db = scan.nextLine();
+			db = "jdbc:mysql:///" + scan.nextLine();
 			System.out.println("Enter a user name:");
 			un = scan.nextLine();
 			System.out.println("Enter a user password:");
@@ -233,7 +231,6 @@ public class JDBC
 
 			try{
 				
-				// Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb", "root", "calmdude6994");
 				Connection connection = DriverManager.getConnection(db, un, pw);
 				System.out.println("\nSuccessfully connected to your database");
 
