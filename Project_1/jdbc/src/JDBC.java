@@ -1,3 +1,5 @@
+package jdbc; 
+
 import java.sql.*;
 import java.util.*;
 
@@ -19,7 +21,7 @@ public class JDBC
 	
 	public static void print(Connection connection, Scanner scan) throws Exception{
 		
-		System.out.println("Please Enter the First Name, Last Name, or ID: ");
+		System.out.println("Please Enter the First Name, Last Name, or Star ID: ");
 		String firstQuery = scan.nextLine(); 
 		System.out.println("Please Enter the Last Name (Click 'Enter' if Blank): ");
 		String secondQuery = scan.nextLine(); 
@@ -32,7 +34,7 @@ public class JDBC
 		else if (secondQuery.equals(""))
 			result = select.executeQuery("SELECT DISTINCT m.id, m.title, m.year, m.director, IF (m.banner_url IS NULL, \'NULL\', m.banner_url) AS BannerURLExists, IF (m.trailer_url IS NULL, \'NULL\', m.trailer_url) AS TrailerURLExists FROM stars_in_movies sim, movies m, stars s WHERE s.id = sim.star_id AND m.id = sim.movie_id AND (s.first_name = \'" + firstQuery + "\' OR s.last_name = \'" + firstQuery + "\')");
 		else
-			result = select.executeQuery("SELECT DISTINCT m.id, m.title, m.year, m.director, IF (m.banner_url IS NULL, \'NULL\', m.banner_url) AS BannerURLExists, IF (m.trailer_url IS NULL, \'NULL\', m.trailer_url) AS TrailerURLExists FROM stars_in_movies sim, movies m, stars s WHERE s.id = sim.star_id AND m.id = sim.movie_id AND ((s.first_name = \'"  + firstQuery + "\' AND s.last_name = \'" + secondQuery + "\') OR (s.first_name =  \'" + firstQuery + "\' OR s.last_name = \'" + secondQuery + "\'))");
+			result = select.executeQuery("SELECT DISTINCT m.id, m.title, m.year, m.director, IF (m.banner_url IS NULL, \'NULL\', m.banner_url) AS BannerURLExists, IF (m.trailer_url IS NULL, \'NULL\', m.trailer_url) AS TrailerURLExists FROM stars_in_movies sim, movies m, stars s WHERE s.id = sim.star_id AND m.id = sim.movie_id AND (s.first_name = \'"  + firstQuery + "\' AND s.last_name = \'" + secondQuery + "\')");
 		
 		while(result.next()){
 
