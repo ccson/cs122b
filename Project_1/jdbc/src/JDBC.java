@@ -222,7 +222,7 @@ public class JDBC
 		while(!exit_program){
 
 			Scanner scan = new Scanner(System.in);
-			System.out.println("\nEnter a database:");
+			System.out.println("\nEnter a database or Type [Exit Program] to Exit: ");
 			db = scan.nextLine();
 			if(db.equalsIgnoreCase("Exit Program")){
 				exit_program = true;
@@ -234,14 +234,14 @@ public class JDBC
 			un = scan.nextLine();
 			if(un.equalsIgnoreCase("Exit Program")){
 				exit_program = true;
-				System.out.println("\nSuccessfully exit the program");							
+				System.out.println("\nSuccessfully exit the program or Type [Exit Program] to Exit: ");							
 				break;
 			}
 			System.out.println("Enter a user password:");
 			pw = scan.nextLine();
 			if(pw.equalsIgnoreCase("Exit Program")){
 				exit_program = true;
-				System.out.println("\nSuccessfully exit the program");							
+				System.out.println("\nSuccessfully exit the program or Type [Exit Program] to Exit: ");							
 				break;
 			}
 
