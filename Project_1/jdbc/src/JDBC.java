@@ -223,11 +223,27 @@ public class JDBC
 
 			Scanner scan = new Scanner(System.in);
 			System.out.println("\nEnter a database:");
-			db = "jdbc:mysql:///" + scan.nextLine();
+			db = scan.nextLine();
+			if(db.equalsIgnoreCase("Exit Program")){
+				exit_program = true;
+				System.out.println("\nSuccessfully exit the program");							
+				break;
+			}
+			db = "jdbc:mysql:///" + db;
 			System.out.println("Enter a user name:");
 			un = scan.nextLine();
+			if(un.equalsIgnoreCase("Exit Program")){
+				exit_program = true;
+				System.out.println("\nSuccessfully exit the program");							
+				break;
+			}
 			System.out.println("Enter a user password:");
 			pw = scan.nextLine();
+			if(pw.equalsIgnoreCase("Exit Program")){
+				exit_program = true;
+				System.out.println("\nSuccessfully exit the program");							
+				break;
+			}
 
 			try{
 				
