@@ -304,6 +304,13 @@ public class JDBC
 			}
 			catch(SQLException e){
 				error = e.getClass().getCanonicalName();
+				
+                if(e.getErrorCode() == 1045)
+                    System.out.println("\nIncorrect credentials");
+
+                else if(e.getErrorCode() == 1049)
+                    System.out.println("\nDatabase does not exist");
+				
 				if(error.equals("java.sql.SQLException")){
 					System.out.println();
 					System.out.println(e.getMessage());
