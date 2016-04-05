@@ -26,4 +26,4 @@ Creating the Database:
 3. Type "cd jdbc"
 4. Type "cd bin"
 5. Type "java -classpath .:../lib/mysql-connector-java-5.0.8-bin.jar JDBC"
-
+6. Database: moviedb | Username: root | Password: ccs
