@@ -5,7 +5,7 @@ Creating the Database:
 1) How To Compile: 
 
 1. Type "cd ~"
-2. Type "unzip Project_1.zip". 
+2. Type "unzip Project1_29.zip". 
 3. Type "cd Project_1"
 4. Type "cd jdbc"
 5. Type "cd src"
@@ -22,7 +22,7 @@ Creating the Database:
 3) How To Run: 
 
 1. Type "cd ~"
-2. Type "cd Projet_1"
+2. Type "cd Project_1"
 3. Type "cd jdbc"
 4. Type "cd bin"
 5. Type "java -classpath .:../lib/mysql-connector-java-5.0.8-bin.jar JDBC"
