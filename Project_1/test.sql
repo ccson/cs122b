@@ -26,4 +26,4 @@ WHERE EXISTS (SELECT cc.id FROM creditcards cc, customers c WHERE cc.id = c.cc_i
 
 # Part 2 Problem 4
 DELETE FROM customers
-WHERE customers.cc_id = '941';
+WHERE customers.cc_id = '872013';
