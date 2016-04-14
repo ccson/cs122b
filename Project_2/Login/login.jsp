@@ -13,7 +13,7 @@
 <BODY BGCOLOR="#FDF5E6">
 <H1 ALIGN="CENTER">Login Page</H1>
 
-<FORM ACTION="servlet/Login"
+<FORM ACTION="servlet/Main"
       METHOD="POST">
   Email: <INPUT TYPE="TEXT" NAME="email"><BR>
 

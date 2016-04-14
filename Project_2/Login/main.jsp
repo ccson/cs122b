@@ -23,7 +23,8 @@
 <! change this later....
 FORM ACTION="servlet/?"
       METHOD="POST">
-<FORM>
+
+<FORM ACTION="/search.jsp">
   <CENTER>
     <INPUT TYPE="SUBMIT" VALUE="Search">
   </CENTER>
