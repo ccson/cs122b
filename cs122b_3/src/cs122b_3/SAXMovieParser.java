@@ -36,7 +36,7 @@ public class SAXMovieParser extends DefaultHandler{
     private void initializeHashMaps() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
     	
 		String loginUser = "root";
-        String loginPasswd = "CHANGE";
+        String loginPasswd = "calmdude6994";
         String loginUrl = "jdbc:mysql:///moviedb";
         
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -61,6 +61,7 @@ public class SAXMovieParser extends DefaultHandler{
         	genresInMoviesSet.add(new GenreInMovie(allGenresInMovies.getInt("genre_id"), allGenresInMovies.getInt("movie_id"))); 
         	
         statement.close(); 
+        dbcon.close(); 
     	
     }
 	
@@ -104,6 +105,7 @@ public class SAXMovieParser extends DefaultHandler{
         	ResultSet primaryKey = getLastKeyStatement.executeQuery(); 
         	primaryKey.next(); 
         	movieMap.put(new GenreInMovie(tempGenreInMovie.getTitle().toLowerCase().trim(), tempGenreInMovie.getYear(), tempGenreInMovie.getDirector().toLowerCase().trim()), primaryKey.getInt(1)); 
+        	primaryKey.close(); 
         	getLastKeyStatement.close(); 
         	
         }
@@ -133,6 +135,7 @@ public class SAXMovieParser extends DefaultHandler{
         	ResultSet primaryKey = getLastKeyStatement.executeQuery(); 
         	primaryKey.next(); 
         	genreMap.put(new GenreInMovie(tempGenreInMovie.getGenre().toLowerCase().trim()), primaryKey.getInt(1)); 
+        	primaryKey.close(); 
         	getLastKeyStatement.close();
         	
         }
@@ -187,8 +190,10 @@ public class SAXMovieParser extends DefaultHandler{
 	}
 	
 	public void runExample() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		
 		initializeHashMaps();
 		parseDocument();
+		
 	}
 
 	private void parseDocument() {
@@ -198,7 +203,7 @@ public class SAXMovieParser extends DefaultHandler{
 		try {
 		
 			SAXParser sp = spf.newSAXParser();
-			sp.parse("CHANGE TO LOCATION OF mains243.xml", this);  
+			sp.parse("/Users/Colin_Son/Downloads/stanford-movies/mains243.xml", this);  
 			
 		}catch(SAXException se) {
 			se.printStackTrace();
