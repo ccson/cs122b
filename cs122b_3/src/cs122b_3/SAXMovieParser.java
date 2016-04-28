@@ -36,7 +36,7 @@ public class SAXMovieParser extends DefaultHandler{
     private void initializeHashMaps() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
     	
 		String loginUser = "root";
-        String loginPasswd = "calmdude6994";
+        String loginPasswd = "CHANGE";
         String loginUrl = "jdbc:mysql:///moviedb";
         
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -79,7 +79,7 @@ public class SAXMovieParser extends DefaultHandler{
         
 		
 		String loginUser = "root";
-        String loginPasswd = "calmdude6994";
+        String loginPasswd = "CHANGE";
         String loginUrl = "jdbc:mysql:///moviedb";
         
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -203,7 +203,7 @@ public class SAXMovieParser extends DefaultHandler{
 		try {
 		
 			SAXParser sp = spf.newSAXParser();
-			sp.parse("/Users/Colin_Son/Downloads/stanford-movies/mains243.xml", this);  
+			sp.parse("CHANGE (DIRECTORY OF mains.243.xml)", this);  
 			
 		}catch(SAXException se) {
 			se.printStackTrace();
