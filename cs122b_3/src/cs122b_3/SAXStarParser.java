@@ -27,17 +27,18 @@ public class SAXStarParser extends DefaultHandler{
 	
 	private StarInMovie tempStarInMovie; 
 	
-	boolean bTitle = false; 
-	boolean bActor = false; 
+	private boolean bTitle = false; 
+	private boolean bActor = false; 
+	private boolean bFilmID = false; 
 	
 	HashMap<StarInMovie, Integer> actorMap;  
 	HashMap<StarInMovie, Integer> movieMap; 
 	HashSet<StarInMovie> starsInMoviesSet; 
 	
-	private void initializeHashMaps() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+	private void initializeHashMaps(HashMap<GenreInMovie, Integer> movieMapFromMovieParser) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
 		String loginUser = "root";
-        String loginPasswd = "CHANGE";
+        String loginPasswd = "calmdude6994";
         String loginUrl = "jdbc:mysql:///moviedb";
         
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -50,12 +51,6 @@ public class SAXStarParser extends DefaultHandler{
         	actorMap.put(new StarInMovie(allStars.getString("first_name").toLowerCase().trim(), allStars.getString("last_name").toLowerCase().trim()), allStars.getInt("id"));
         allStars.close();
         
-        String getMovies = "SELECT * FROM movies; "; 
-        ResultSet allMovies = statement.executeQuery(getMovies); 
-        while (allMovies.next())
-        	movieMap.put(new StarInMovie(allMovies.getString("title").toLowerCase().trim()), allMovies.getInt("id")); 
-        allMovies.close(); 	
-        
         String getStarsInMovies = "SELECT * FROM stars_in_movies; "; 
         ResultSet allStarsInMovies = statement.executeQuery(getStarsInMovies); 
         while (allStarsInMovies.next())
@@ -64,6 +59,15 @@ public class SAXStarParser extends DefaultHandler{
         
         statement.close(); 
         dbcon.close(); 
+        
+        for (GenreInMovie g : movieMapFromMovieParser.keySet()){
+        	
+        	if (g.getFilmID() != null)
+        		movieMap.put(new StarInMovie(g.getTitle().toLowerCase().trim(), g.getFilmID().toLowerCase().trim(), 0), movieMapFromMovieParser.get(g)); 
+        	else
+        		movieMap.put(new StarInMovie(g.getTitle().toLowerCase().trim(), null, 0), movieMapFromMovieParser.get(g)); 
+        	
+        }
 		
 	}
 	
@@ -75,7 +79,7 @@ public class SAXStarParser extends DefaultHandler{
 			return; 
 			
 		String loginUser = "root";
-        String loginPasswd = "CHANGE";
+        String loginPasswd = "calmdude6994";
         String loginUrl = "jdbc:mysql:///moviedb";
         
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -105,7 +109,7 @@ public class SAXStarParser extends DefaultHandler{
         	
         }
 		
-        if (tempStarInMovie.getMovieTitle() == null || tempStarInMovie.getMovieTitle().equals("") || !movieMap.containsKey(new StarInMovie(tempStarInMovie.getMovieTitle().toLowerCase().trim()))){
+        if (tempStarInMovie.getMovieTitle() == null || tempStarInMovie.getMovieTitle().equals("") || tempStarInMovie.getFilmID() == null || tempStarInMovie.getFilmID().equals("") || !movieMap.containsKey(new StarInMovie(tempStarInMovie.getMovieTitle().toLowerCase().trim(), tempStarInMovie.getFilmID().toLowerCase().trim(), 0))){
         	
         	dbcon.close();
         	return; 
@@ -113,7 +117,7 @@ public class SAXStarParser extends DefaultHandler{
         }
         
         int starID = actorMap.get(new StarInMovie(tempStarInMovie.getActorFirstName().toLowerCase().trim(), tempStarInMovie.getActorLastName().toLowerCase().trim())); 
-        int movieID = movieMap.get(new StarInMovie(tempStarInMovie.getMovieTitle().toLowerCase().trim())); 
+        int movieID = movieMap.get(new StarInMovie(tempStarInMovie.getMovieTitle().toLowerCase().trim(), tempStarInMovie.getFilmID().toLowerCase().trim(), 0)); 
         
         int insertStarInMovieStatus = 0; 
         if (!starsInMoviesSet.contains(new StarInMovie(starID, movieID))){
@@ -145,9 +149,9 @@ public class SAXStarParser extends DefaultHandler{
 		
 	}
 	
-	public void runExample() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public void runExample(HashMap<GenreInMovie, Integer> movieMapFromMovieParser) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		
-		initializeHashMaps(); 
+		initializeHashMaps(movieMapFromMovieParser); 
 		parseDocument();
 		
 	}
@@ -159,7 +163,7 @@ public class SAXStarParser extends DefaultHandler{
 		try {
 		
 			SAXParser sp = spf.newSAXParser();
-			sp.parse("CHANGE (DIRECTORY of casts124.xml", this);  
+			sp.parse("./casts124.xml", this);  
 			
 		}catch(SAXException se) {
 			se.printStackTrace();
@@ -178,6 +182,8 @@ public class SAXStarParser extends DefaultHandler{
 			bTitle = true; 
 		else if (qName.equalsIgnoreCase("a"))
 			bActor = true; 
+		else if (qName.equalsIgnoreCase("f"))
+			bFilmID = true;
 			
 	}
 	
@@ -205,6 +211,13 @@ public class SAXStarParser extends DefaultHandler{
 			
 		}
 		
+		else if (bFilmID){
+			
+			tempStarInMovie.setFilmID(new String(ch, start, length).trim());
+			bFilmID = false; 
+			
+		}
+		
 	}
 	
 	public void endElement(String uri, String localName, String qName) throws SAXException {
@@ -220,26 +233,6 @@ public class SAXStarParser extends DefaultHandler{
 			tempStarInMovie = null; 
 			
 		}
-		
-	}
-	
-	public static void main(String[] args){
-		
-		Runtime runtime = Runtime.getRuntime(); 
-		
-		long start = System.currentTimeMillis(); 
-		
-		SAXStarParser spe = new SAXStarParser();
-		try {
-			spe.runExample();
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		long end = System.currentTimeMillis(); 
-		System.out.println("Time in Seconds: " + ((end - start) / 1000.0));
-		System.out.println("Total Memory (in MB) Used: " + ((runtime.totalMemory() - runtime.freeMemory()) / 1048576.0));
 		
 	}
 
