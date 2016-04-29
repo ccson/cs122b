@@ -27,6 +27,8 @@ public class SAXStarParser extends DefaultHandler{
 	
 	private StarInMovie tempStarInMovie; 
 	
+	private Connection dbcon; 
+	
 	private boolean bTitle = false; 
 	private boolean bActor = false; 
 	private boolean bFilmID = false; 
@@ -36,13 +38,6 @@ public class SAXStarParser extends DefaultHandler{
 	HashSet<StarInMovie> starsInMoviesSet; 
 	
 	private void initializeHashMaps(HashMap<GenreInMovie, Integer> movieMapFromMovieParser) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
-		
-		String loginUser = "root";
-        String loginPasswd = "calmdude6994";
-        String loginUrl = "jdbc:mysql:///moviedb";
-        
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
         
         Statement statement = dbcon.createStatement(); 
         String getAllStars = "SELECT * FROM stars; "; 
@@ -58,7 +53,6 @@ public class SAXStarParser extends DefaultHandler{
         allStarsInMovies.close();
         
         statement.close(); 
-        dbcon.close(); 
         
         for (GenreInMovie g : movieMapFromMovieParser.keySet()){
         	
@@ -77,13 +71,6 @@ public class SAXStarParser extends DefaultHandler{
 		
 		if (tempStarInMovie.getActorFirstName() == null || tempStarInMovie.getActorLastName() == null || tempStarInMovie.getActorFirstName().equals("") || tempStarInMovie.getActorLastName().equals(""))
 			return; 
-			
-		String loginUser = "root";
-        String loginPasswd = "calmdude6994";
-        String loginUrl = "jdbc:mysql:///moviedb";
-        
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
         
         int insertStarStatus = 0; 
         if (!actorMap.containsKey(new StarInMovie(tempStarInMovie.getActorFirstName().toLowerCase().trim(), tempStarInMovie.getActorLastName().toLowerCase().trim()))){
@@ -111,7 +98,6 @@ public class SAXStarParser extends DefaultHandler{
 		
         if (tempStarInMovie.getMovieTitle() == null || tempStarInMovie.getMovieTitle().equals("") || tempStarInMovie.getFilmID() == null || tempStarInMovie.getFilmID().equals("") || !movieMap.containsKey(new StarInMovie(tempStarInMovie.getMovieTitle().toLowerCase().trim(), tempStarInMovie.getFilmID().toLowerCase().trim(), 0))){
         	
-        	dbcon.close();
         	return; 
         	
         }
@@ -136,16 +122,22 @@ public class SAXStarParser extends DefaultHandler{
         	starsInMoviesSet.add(new StarInMovie(starID, movieID)); 
         	
         }
-        		
-        dbcon.close(); 
         
 	}
 	
-	public SAXStarParser(){
+	public SAXStarParser() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
 		actorMap = new HashMap<StarInMovie, Integer>(); 
 		movieMap = new HashMap<StarInMovie, Integer>(); 
 		starsInMoviesSet = new HashSet<StarInMovie>(); 
+		
+		String loginUser = "root";
+        String loginPasswd = "calmdude6994";
+        String loginUrl = "jdbc:mysql:///moviedb";
+        
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+        dbcon.setAutoCommit(false);
 		
 	}
 	
@@ -153,6 +145,7 @@ public class SAXStarParser extends DefaultHandler{
 		
 		initializeHashMaps(movieMapFromMovieParser); 
 		parseDocument();
+		dbcon.commit();
 		
 	}
 

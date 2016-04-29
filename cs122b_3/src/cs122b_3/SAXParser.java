@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public class SAXParser {
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
 		long MovieParserStart;
 		long MovieParserEnd;
@@ -26,7 +26,6 @@ public class SAXParser {
 			System.out.println("Time in Seconds for Star Parser: " + ((StarParserEnd - StarParserStart) / 1000.0));
 			
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

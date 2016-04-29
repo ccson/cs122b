@@ -28,20 +28,15 @@ public class SAXMovieParser extends DefaultHandler{
 	private boolean bGenre = false; 
 	private boolean bFilmID = false; 
 	
+	private Connection dbcon; 
+	
 	private GenreInMovie tempGenreInMovie; 
 	
-    HashMap<GenreInMovie, Integer> movieMap;
-    HashMap<GenreInMovie, Integer> genreMap;
-    HashSet<GenreInMovie> genresInMoviesSet; 
+    private HashMap<GenreInMovie, Integer> movieMap;
+    private HashMap<GenreInMovie, Integer> genreMap;
+    private HashSet<GenreInMovie> genresInMoviesSet; 
     
     private void initializeHashMaps() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
-    	
-		String loginUser = "root";
-        String loginPasswd = "calmdude6994";
-        String loginUrl = "jdbc:mysql:///moviedb";
-        
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
         
         Statement statement = dbcon.createStatement(); 
         String getAllMovies = "SELECT * FROM movies; "; 
@@ -63,7 +58,6 @@ public class SAXMovieParser extends DefaultHandler{
         allGenresInMovies.close();
         	
         statement.close(); 
-        dbcon.close(); 
     	
     }
 	
@@ -78,14 +72,6 @@ public class SAXMovieParser extends DefaultHandler{
         	return; 
         	
         }
-        
-		
-		String loginUser = "root";
-        String loginPasswd = "calmdude6994";
-        String loginUrl = "jdbc:mysql:///moviedb";
-        
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
         
         int insertMovieStatus = 0; 
         if (!movieMap.containsKey(new GenreInMovie(tempGenreInMovie.getTitle().toLowerCase().trim(), tempGenreInMovie.getYear(), tempGenreInMovie.getDirector().toLowerCase().trim(), tempGenreInMovie.getFilmID().toLowerCase().trim()))){
@@ -114,7 +100,6 @@ public class SAXMovieParser extends DefaultHandler{
 
         if (tempGenreInMovie.getGenre() == null || tempGenreInMovie.getGenre().equals("")){
         	
-            dbcon.close(); 
         	return; 
         	
         }
@@ -163,8 +148,6 @@ public class SAXMovieParser extends DefaultHandler{
         	genresInMoviesSet.add(new GenreInMovie(genreID, movieID)); 
         	
         }
-        
-        dbcon.close(); 
 		
 	}
 	
@@ -181,11 +164,19 @@ public class SAXMovieParser extends DefaultHandler{
 		
 	}
 
-	public SAXMovieParser(){
+	public SAXMovieParser() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
 	    movieMap = new HashMap<GenreInMovie, Integer>(); 
 	    genreMap = new HashMap<GenreInMovie, Integer>(); 
 	    genresInMoviesSet = new HashSet<GenreInMovie>(); 
+	    
+		String loginUser = "root";
+        String loginPasswd = "calmdude6994";
+        String loginUrl = "jdbc:mysql:///moviedb";
+        
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+        dbcon.setAutoCommit(false);
 		
 	}
 	
@@ -193,6 +184,7 @@ public class SAXMovieParser extends DefaultHandler{
 		
 		initializeHashMaps();
 		parseDocument();
+		dbcon.commit();
 		
 	}
 
