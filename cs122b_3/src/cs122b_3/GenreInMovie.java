@@ -69,9 +69,6 @@ public class GenreInMovie {
 	@Override 
 	public boolean equals(Object object){
 		
-		if (object == null || this.getClass() != object.getClass())
-			return false; 
-		
 		GenreInMovie comparison = (GenreInMovie) object; 
 		
 		if (this.title != null && comparison.getTitle() != null && !this.title.equals(comparison.getTitle()))
@@ -100,7 +97,7 @@ public class GenreInMovie {
 		hash = 31 * hash + (null == this.title ? 0 : this.title.hashCode()); 
 		hash = 31 * hash + (null == this.director ? 0 : this.director.hashCode()); 
 		hash = 31 * hash + (null == this.genre ? 0 : this.genre.hashCode()); 
-		hash = 31 * hash + (null == this.filmID ? 0 : this.filmID.hashCode()); 
+//		hash = 31 * hash + (null == this.filmID ? 0 : this.filmID.hashCode()); 
 		hash = 31 * hash + this.year; 
 		hash = 31 * hash + this.genreID; 
 		hash = 31 * hash + this.movieID; 

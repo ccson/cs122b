@@ -33,6 +33,7 @@ public class SAXMovieParser extends DefaultHandler{
 	private GenreInMovie tempGenreInMovie; 
 	
     private HashMap<GenreInMovie, Integer> movieMap;
+    private HashMap<GenreInMovie, Integer> movieMapWithID; 
     private HashMap<GenreInMovie, Integer> genreMap;
     private HashSet<GenreInMovie> genresInMoviesSet; 
     
@@ -74,7 +75,7 @@ public class SAXMovieParser extends DefaultHandler{
         }
         
         int insertMovieStatus = 0; 
-        if (!movieMap.containsKey(new GenreInMovie(tempGenreInMovie.getTitle().toLowerCase().trim(), tempGenreInMovie.getYear(), tempGenreInMovie.getDirector().toLowerCase().trim(), tempGenreInMovie.getFilmID().toLowerCase().trim()))){
+        if (!movieMap.containsKey(new GenreInMovie(tempGenreInMovie.getTitle().toLowerCase().trim(), tempGenreInMovie.getYear(), tempGenreInMovie.getDirector().toLowerCase().trim(), null))){
         
 	        String insertMovie = "INSERT INTO movies (title, year, director) VALUES (?, ?, ?); "; 
 	        PreparedStatement insertMovieStatement = dbcon.prepareStatement(insertMovie); 
@@ -92,7 +93,8 @@ public class SAXMovieParser extends DefaultHandler{
         	PreparedStatement getLastKeyStatement = dbcon.prepareStatement(getLastKey); 
         	ResultSet primaryKey = getLastKeyStatement.executeQuery(); 
         	primaryKey.next(); 
-        	movieMap.put(new GenreInMovie(tempGenreInMovie.getTitle().toLowerCase().trim(), tempGenreInMovie.getYear(), tempGenreInMovie.getDirector().toLowerCase().trim(), tempGenreInMovie.getFilmID().toLowerCase().trim()), primaryKey.getInt(1)); 
+        	movieMap.put(new GenreInMovie(tempGenreInMovie.getTitle().toLowerCase().trim(), tempGenreInMovie.getYear(), tempGenreInMovie.getDirector().toLowerCase().trim(), null), primaryKey.getInt(1)); 
+        	movieMapWithID.put(new GenreInMovie(tempGenreInMovie.getTitle().toLowerCase().trim(), tempGenreInMovie.getYear(), tempGenreInMovie.getDirector().toLowerCase().trim(), tempGenreInMovie.getFilmID().toLowerCase().trim()), primaryKey.getInt(1)); 
         	primaryKey.close(); 
         	getLastKeyStatement.close(); 
         	
@@ -167,6 +169,7 @@ public class SAXMovieParser extends DefaultHandler{
 	public SAXMovieParser() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
 	    movieMap = new HashMap<GenreInMovie, Integer>(); 
+	    movieMapWithID = new HashMap<GenreInMovie, Integer>(); 
 	    genreMap = new HashMap<GenreInMovie, Integer>(); 
 	    genresInMoviesSet = new HashSet<GenreInMovie>(); 
 	    
@@ -288,9 +291,9 @@ public class SAXMovieParser extends DefaultHandler{
 		
 	}
 	
-	public HashMap<GenreInMovie, Integer> getMovieMap(){
+	public HashMap<GenreInMovie, Integer> getMovieMapWithID(){
 		
-		return movieMap; 
+		return movieMapWithID; 
 		
 	}
 	

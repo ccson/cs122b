@@ -21,7 +21,7 @@ public class SAXParser {
 			System.out.println("Time in Seconds for Movie Parser: " + ((MovieParserEnd - MovieParserStart) / 1000.0));
 			
 			StarParserStart = System.currentTimeMillis(); 
-			starParser.runExample(movieParser.getMovieMap());
+			starParser.runExample(movieParser.getMovieMapWithID());
 			StarParserEnd = System.currentTimeMillis(); 
 			System.out.println("Time in Seconds for Star Parser: " + ((StarParserEnd - StarParserStart) / 1000.0));
 			
