@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Fabflix Search"
+        android:id="@+id/fabflixSearchID"
+        android:layout_weight="0.08"
+        android:layout_gravity="center"
+        android:textSize="50dp"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.45"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Search By Title"
+            android:id="@+id/searchByTitle"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.08"
+            android:gravity="center_horizontal" />
+
+        <EditText android:id="@+id/searchTextBox"
+            android:layout_column="23"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.18"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Search"
+            android:id="@+id/button"
+            android:layout_column="28"
+            android:onClick="connectToFabflix"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
