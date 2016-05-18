@@ -29,6 +29,11 @@
         </activity>
         <activity
             android:name=".SearchResultPage" />
+        <activity
+            android:name=".SingleMovie" />
+        <activity
+            android:name=".SingleStar" />
+        <receiver android:name=".MyAlarmReceiver" />
     </application>
 
 </manifest>

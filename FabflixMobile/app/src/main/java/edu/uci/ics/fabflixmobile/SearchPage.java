@@ -20,6 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.widget.EditText;
+import android.os.*;
+import android.app.*;
+import java.util.*;
+import com.android.volley.*;
 
 public class SearchPage extends ActionBarActivity {
 
@@ -32,19 +36,31 @@ public class SearchPage extends ActionBarActivity {
 
     public void connectToFabflix(View view){
 
-        //
-
         final Map<String, String> params = new HashMap<String, String>();
 
-
-        // no user is logged in, so we must connect to the server
         RequestQueue queue = Volley.newRequestQueue(this);
 
         final Context context = this;
         EditText editText = (EditText)findViewById(R.id.searchTextBox);
-        String query = editText.getText().toString();
-        String url = "http://10.0.2.2:8080/project3_29/android/moviesearch?title=" + query;
+        String query = editText.getText().toString().trim();
 
+        if (query.equals("")){
+
+            AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(this, MyAlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+            Calendar time = Calendar.getInstance();
+            time.setTimeInMillis(System.currentTimeMillis());
+            time.add(Calendar.MILLISECOND, 0);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+
+            return;
+
+        }
+
+//        String url = "https://52.34.97.23:8443/fabfix-android/android/moviesearch?pageNumber=1&title=" + query;
+        String url = "http://10.0.2.2:8080/project3_29/android/moviesearch?pageNumber=1&title=" + query;
+        url = url.replace(" ", "%20");
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
@@ -75,8 +91,8 @@ public class SearchPage extends ActionBarActivity {
 
         };
 
+        //postRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        // Add the request to the RequestQueue.
         queue.add(postRequest);
 
 
