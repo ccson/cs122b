@@ -20,7 +20,7 @@
             android:name=".GreenActivity"
             android:label="@string/title_activity_green" />
         <activity
-            android:name=".SearchPage" >
+            android:name=".LoginPage" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,12 +28,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SearchPage" />
+        <activity
             android:name=".SearchResultPage" />
         <activity
             android:name=".SingleMovie" />
         <activity
             android:name=".SingleStar" />
         <receiver android:name=".MyAlarmReceiver" />
+        <receiver android:name=".LoginAlarm" />
     </application>
 
 </manifest>

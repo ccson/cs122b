@@ -58,8 +58,8 @@ public class SearchPage extends ActionBarActivity {
 
         }
 
-//        String url = "https://52.34.97.23:8443/fabfix-android/android/moviesearch?pageNumber=1&title=" + query;
-        String url = "http://10.0.2.2:8080/project3_29/android/moviesearch?pageNumber=1&title=" + query;
+        //String url = "http://10.0.2.2:8080/project3_29/android/moviesearch?pageNumber=1&title=" + query;
+        String url = "http://52.34.97.23:8080/fabflix/android/moviesearch?pageNumber=1&title=" + query;
         url = url.replace(" ", "%20");
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -97,6 +97,11 @@ public class SearchPage extends ActionBarActivity {
 
 
         return ;
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
 }

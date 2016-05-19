@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Copyright 2004 The Apache Software Foundation
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+    <display-name>Test Tomcat Connection to MySQL DB</display-name>
+    <description>
+      Test Tomcat Connection to mySQL DB
+    </description>
+
+
+  <!-- Define servlets that are included in the example application -->
+  
+    <filter>
+      <filter-name>AuthenticationFilter</filter-name>
+      <filter-class>MyClasses.AuthenticationFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+      <filter-name>AuthenticationFilter</filter-name>
+      <url-pattern>/success/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+      <servlet-name>BrowseJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/Browse.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+      <servlet-name>BrowseJSP</servlet-name>
+      <url-pattern>/success/browse</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>BrowseByGenreServlet</servlet-name>
+      <servlet-class>MyClasses.BrowseByGenre</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>BrowseByGenreServlet</servlet-name>
+      <url-pattern>/success/browse/genre</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>BrowseByGenreJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/BrowseByGenre.jsp</jsp-file>
+    </servlet>
+    
+    <servlet>
+      <servlet-name>BrowseByTitle</servlet-name>
+      <servlet-class>MyClasses.BrowseByTitle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>BrowseByTitle</servlet-name>
+      <url-pattern>/success/browse/title</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>BrowseByTitleJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/BrowseByTitle.jsp</jsp-file>
+    </servlet>
+    
+    <servlet>
+      <servlet-name>MovieListServlet</servlet-name>
+      <servlet-class>MyClasses.MovieList</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>MovieListServlet</servlet-name>
+      <url-pattern>/success/movielist</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>MovieListJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/movieList.jsp</jsp-file>
+    </servlet>
+    
+    <servlet>
+      <servlet-name>SingleMovieServlet</servlet-name>
+      <servlet-class>MyClasses.SingleMovie</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>SingleMovieServlet</servlet-name>
+      <url-pattern>/success/singlemovie</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>SingleMovieJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/SingleMovie.jsp</jsp-file>
+    </servlet>
+    
+    <servlet>
+      <servlet-name>SingleStarServlet</servlet-name>
+      <servlet-class>MyClasses.SingleStar</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>SingleStarServlet</servlet-name>
+      <url-pattern>/success/singlestar</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>SingleStarJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/SingleStar.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+      <servlet-name>LoginServlet</servlet-name>
+      <servlet-class>MyClasses.Login</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>LoginServlet</servlet-name>
+      <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>SearchServlet</servlet-name>
+      <jsp-file>/WEB-INF/JSP/Search.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>SearchServlet</servlet-name>
+      <url-pattern>/success/Search</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>MainPageJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/Main.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>MainPageJSP</servlet-name>
+      <url-pattern>/success/main</url-pattern>
+    </servlet-mapping>
+	
+	<servlet>
+      <servlet-name>CustomerInfoServlet</servlet-name>
+      <jsp-file>/WEB-INF/JSP/CustomerInfo.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>CustomerInfoServlet</servlet-name>
+      <url-pattern>/success/info</url-pattern>
+    </servlet-mapping>
+	
+    <servlet>
+      <servlet-name>ShoppingCartServlet</servlet-name>
+      <jsp-file>/WEB-INF/JSP/ShoppingCart.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>ShoppingCartServlet</servlet-name>
+      <url-pattern>/success/shoppingcart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>ConfirmationServlet</servlet-name>
+      <servlet-class>MyClasses.Confirmation</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>ConfirmationServlet</servlet-name>
+      <url-pattern>/success/confirmation</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>AddToCartServlet</servlet-name>
+      <servlet-class>MyClasses.AddToCart</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AddToCartServlet</servlet-name>
+      <url-pattern>/success/addtocart</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>LIKE</servlet-name>
+      <jsp-file>/WEB-INF/JSP/LIKE.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>LIKE</servlet-name>
+      <url-pattern>/reports/like-predicate</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>READ</servlet-name>
+      <jsp-file>/WEB-INF/JSP/READ.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>READ</servlet-name>
+      <url-pattern>/reports/readme</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+      <session-timeout>60</session-timeout>
+    </session-config>
+    
+
+
+
+
+    <filter>
+          <filter-name>EmployeeAuthenticationFilter</filter-name>
+          <filter-class>MyClasses.EmployeeAuthenticationFilter</filter-class>
+        </filter>
+        
+    <filter-mapping>
+      <filter-name>EmployeeAuthenticationFilter</filter-name>
+      <url-pattern>/_dashboard/employee/*</url-pattern>
+    </filter-mapping>
+	
+    <servlet>
+      <servlet-name>DashBoardLoginServlet</servlet-name>
+      <servlet-class>MyClasses.LoginDashBoard</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>DashBoardLoginServlet</servlet-name>
+      <url-pattern>/_dashboard/main</url-pattern>
+    </servlet-mapping>
+		
+    <servlet>
+      <servlet-name>maindashboardJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/MainDashBoard.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>maindashboardJSP</servlet-name>
+      <url-pattern>/_dashboard/employee/main</url-pattern>
+    </servlet-mapping>
+	
+    <servlet>
+      <servlet-name>metadata</servlet-name>
+      <servlet-class>MyClasses.MetaData</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>metadata</servlet-name>
+      <url-pattern>/_dashboard/employee/metadata</url-pattern>
+    </servlet-mapping>	
+	
+    <servlet>
+      <servlet-name>dashboardinsert</servlet-name>
+      <servlet-class>MyClasses.InsertDashBoard</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>dashboardinsert</servlet-name>
+      <url-pattern>/_dashboard/employee/insertstar</url-pattern>
+    </servlet-mapping>
+	
+    <servlet>
+      <servlet-name>dashboard</servlet-name>
+      <jsp-file>/WEB-INF/JSP/DashBoard.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>dashboard</servlet-name>
+      <url-pattern>/_dashboard</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>AddMovie</servlet-name>
+      <servlet-class>MyClasses.AddMovie</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AddMovie</servlet-name>
+      <url-pattern>/_dashboard/employee/addmovie</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>AutoPopup</servlet-name>
+      <servlet-class>MyClasses.AutoPopup</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AutoPopup</servlet-name>
+      <url-pattern>/success/autopopup</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>SearchAndroid</servlet-name>
+      <servlet-class>MyClasses.SearchAndroid</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>SearchAndroid</servlet-name>
+      <url-pattern>/android/moviesearch</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>AndroidSingleMovie</servlet-name>
+      <servlet-class>MyClasses.AndroidSingleMovie</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AndroidSingleMovie</servlet-name>
+      <url-pattern>/android/singlemovie</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>AndroidSingleStar</servlet-name>
+      <servlet-class>MyClasses.AndroidSingleStar</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AndroidSingleStar</servlet-name>
+      <url-pattern>/android/singlestar</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    
+  
+    
+    <welcome-file-list>
+      <welcome-file>loginpage</welcome-file>
+    </welcome-file-list>
+    
+    <servlet>
+      <servlet-name>LoginJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/Login.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>LoginJSP</servlet-name>
+      <url-pattern>/loginpage</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>AjaxSearchJSP</servlet-name>
+      <jsp-file>/WEB-INF/JSP/AjaxSearch.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AjaxSearchJSP</servlet-name>
+      <url-pattern>/ajaxsearch</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>AutoComplete</servlet-name>
+      <servlet-class>MyClasses.AutoComplete</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AutoComplete</servlet-name>
+      <url-pattern>/success/autocomplete</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+      <servlet-name>AndroidLogin</servlet-name>
+      <servlet-class>MyClasses.AndroidLogin</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AndroidLogin</servlet-name>
+      <url-pattern>/android/login</url-pattern>
+    </servlet-mapping>
+    
+    
+
+    
+
+</web-app>
