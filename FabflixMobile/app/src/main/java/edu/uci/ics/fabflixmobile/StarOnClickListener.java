@@ -44,7 +44,7 @@ public class StarOnClickListener implements View.OnClickListener {
         String starID = Integer.toString(star.getID());
 
 //        String url = "http://10.0.2.2:8080/project3_29/android/singlestar?starID=" + starID;
-        String url = "http://52.34.97.23:8080/fabflix/android/singlestar?starID=" + starID;
+        String url = "http://52.34.97.23:8080/project4/android/singlestar?starID=" + starID;
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()

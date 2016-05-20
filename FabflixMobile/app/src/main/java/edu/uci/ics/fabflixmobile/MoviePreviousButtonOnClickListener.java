@@ -40,7 +40,7 @@ public class MoviePreviousButtonOnClickListener implements View.OnClickListener 
         RequestQueue queue = Volley.newRequestQueue(view.getContext());
 
 //        String url = "http://10.0.2.2:8080/project3_29/android/moviesearch?pageNumber=" + (movie.getCurrentPageNumber() - 1)  + "&title=" + movie.getTitleQuery();
-        String url = "http://52.34.97.23:8080/fabflix/android/moviesearch?pageNumber=" + (movie.getCurrentPageNumber() - 1)  + "&title=" + movie.getTitleQuery();
+        String url = "http://52.34.97.23:8080/project4/android/moviesearch?pageNumber=" + (movie.getCurrentPageNumber() - 1)  + "&title=" + movie.getTitleQuery();
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()

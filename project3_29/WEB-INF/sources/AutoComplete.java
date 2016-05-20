@@ -40,10 +40,15 @@ public class AutoComplete extends HttpServlet {
 			
 			for (int i = 0; i < inputParsed.length; i++){
 				
-				titleQuery = titleQuery.concat("+" + inputParsed[i]); 
-				
-				if (i == inputParsed.length - 1)
+				if (i == inputParsed.length - 1){
+					
+					titleQuery = titleQuery.concat("+" + inputParsed[i]); 
 					titleQuery = titleQuery.concat("*"); 
+					
+				}
+				
+				else 
+					titleQuery = titleQuery.concat("+" + inputParsed[i] + " "); 
 				
 			}
 			

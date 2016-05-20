@@ -9,9 +9,9 @@
 <HEAD>
 	<TITLE>Fabflix Search</TITLE>
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"> </script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"> </script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"> </script>
+	<script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"> </script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 	
 	<style>
 	
@@ -19,6 +19,13 @@
 			max-height: 200px;
 			overflow-y: auto;
 			overflow-x: hidden;
+			width: 600px; 
+		}
+		
+		.searchBox {
+			
+			width: 500px; 
+			
 		}
 		
 	</style>
@@ -44,7 +51,7 @@
 	<table>
 		<tr>
 			<td>Title: </td>
-			<td><div class="search-container"><div class="ui-widget"><INPUT type="TEXT" name="title" id="search"></div></div></td>
+			<td><div class="search-container"><div class="ui-widget"><INPUT type="TEXT" name="title" id="search" class="searchBox"></div></div></td>
 		</tr>
 		<tr>
 			<td>Year: </td>

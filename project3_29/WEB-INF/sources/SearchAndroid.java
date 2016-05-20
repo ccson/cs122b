@@ -48,10 +48,15 @@ public class SearchAndroid extends HttpServlet
 				
 				for (int i = 0; i < queryParsed.length; i++){
 					
-					fullTextQuery = fullTextQuery.concat("+" + queryParsed[i]); 
-					
-					if (i == queryParsed.length - 1)
+					if (i == queryParsed.length - 1){
+						
+						fullTextQuery = fullTextQuery.concat("+" + queryParsed[i]); 
 						fullTextQuery = fullTextQuery.concat("*"); 
+						
+					}
+					
+					else 
+						fullTextQuery = fullTextQuery.concat("+" + queryParsed[i] + " "); 
 					
 				}
 			

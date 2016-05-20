@@ -73,7 +73,7 @@ public class LoginPage extends ActionBarActivity {
         String pw = passwordeditText.getText().toString();
 
 //        String url = "http://10.0.2.2:8080/project3_29/android/login?email=" + email + "&" + "pw=" + pw;
-        String url = "http://52.34.97.23:8080/fabflix/android/login?email=" + email + "&" + "pw=" + pw;
+        String url = "http://52.34.97.23:8080/project4/android/login?email=" + email + "&" + "pw=" + pw;
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

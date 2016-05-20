@@ -381,8 +381,56 @@
       <url-pattern>/android/login</url-pattern>
     </servlet-mapping>
     
-    
 
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>HTTPSOnly</web-resource-name>
+        <url-pattern>/success/*</url-pattern>
+      </web-resource-collection>
+        <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+      </user-data-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>HTTPSOnly</web-resource-name>
+        <url-pattern>/_dashboard/*</url-pattern>
+      </web-resource-collection>
+        <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+      </user-data-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>HTTPSOnly</web-resource-name>
+        <url-pattern>/WEB-INF/JSP/*</url-pattern>
+      </web-resource-collection>
+        <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+      </user-data-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>HTTPSOnly</web-resource-name>
+        <url-pattern>/main</url-pattern>
+      </web-resource-collection>
+        <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+      </user-data-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>HTTPSOnly</web-resource-name>
+        <url-pattern>/loginpage</url-pattern>
+      </web-resource-collection>
+        <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+      </user-data-constraint>
+    </security-constraint>
     
 
 </web-app>
